@@ -1,14 +1,28 @@
 import React from 'react';
-import { GoogleAuthProvider, getAuth } from "firebase/auth";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import app from '../Firebase/FirebaseInit';
-const provider = new GoogleAuthProvider()
 
-const handleGoogleSingnIn = () =>{
-    console.log('google signIN')
-}
+
+
 
 const Login = () => {
     const auth =getAuth(app)
+    console.log(auth)
+    const provider = new GoogleAuthProvider();
+
+
+    const handleGoogleSingnIn = () =>{
+        // console.log('google signIN')
+        signInWithPopup(auth, provider)
+    
+    .then(result => {
+        const user = result.user;
+        console.log(user);
+    })
+    .catch(error => {
+        console.log('error', error.message)
+    })
+}
     return (
         <div>
             <button onClick={handleGoogleSingnIn}>Google login</button>
